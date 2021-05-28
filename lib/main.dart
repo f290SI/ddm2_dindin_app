@@ -21,14 +21,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        brightness: Brightness.dark,
         primarySwatch: Colors.amber,
         scaffoldBackgroundColor: Color(0xFF171717),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF282828),
           unselectedItemColor: Colors.grey.shade600,
         ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Din Din App'),
     );
   }
 }
@@ -56,7 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        backgroundColor: Colors.amber,
+        centerTitle: true,
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: FutureBuilder(
         future: helper.getCotacaoMoeda(),
@@ -79,6 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
               DolarPage(moeda: Moeda.fromJson(moedas['USD'])),
               EuroPage(moeda: Moeda.fromJson(moedas['EUR'])),
               BitCoinPage(moeda: Moeda.fromJson(moedas['BTC'])),
+              Container(
+                color: Colors.amber,
+              ),
             ];
             return pages[_selectedIndex];
           }
@@ -94,6 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(FontAwesomeIcons.euroSign), label: 'Euro'),
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.btc), label: 'BTC'),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.searchDollar), label: 'Query'),
         ],
         onTap: (index) {
           setState(() {
