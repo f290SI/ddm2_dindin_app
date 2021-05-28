@@ -21,7 +21,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
+        scaffoldBackgroundColor: Color(0xFF171717),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Color(0xFF282828),
+          unselectedItemColor: Colors.grey.shade600,
+        ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -54,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: FutureBuilder(
-        future: helper.getCotacaoMoeda('usd'),
+        future: helper.getCotacaoMoeda(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting ||
               snapshot.connectionState == ConnectionState.none) {
@@ -62,38 +67,39 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SizedBox(
                 width: 250,
                 height: 250,
-                child: LoadingIndicator(indicatorType: Indicator.ballScaleMultiple, color: Colors.blueAccent,),
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballScaleMultiple,
+                  color: Colors.amberAccent,
+                ),
               ),
             );
           } else {
-            moeda = Moeda.fromJson(snapshot.data);
+            var moedas = snapshot.data;
             pages = [
-              DolarPage(moeda: moeda),
-              EuroPage(moeda: moeda),
-              BitCoinPage(moeda: moeda,),
+              DolarPage(moeda: Moeda.fromJson(moedas['USD'])),
+              EuroPage(moeda: Moeda.fromJson(moedas['EUR'])),
+              BitCoinPage(moeda: Moeda.fromJson(moedas['BTC'])),
             ];
             return pages[_selectedIndex];
           }
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blueAccent,
+        selectedItemColor: Colors.amberAccent,
         currentIndex: _selectedIndex,
         items: [
-          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.dollarSign), label: 'Dolar'),
-          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.euroSign), label: 'Euro'),
-          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.btc), label: 'BTC'),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.dollarSign), label: 'Dolar'),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.euroSign), label: 'Euro'),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.btc), label: 'BTC'),
         ],
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
           });
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

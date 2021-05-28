@@ -1,4 +1,5 @@
 import 'package:ddm2_dindin_app/model/moeda.dart';
+import 'package:ddm2_dindin_app/pages/shared/widgets/exibicao_moeda_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,75 +25,12 @@ class _EuroPageState extends State<EuroPage> {
         Icon(
           FontAwesomeIcons.euroSign,
           size: 200,
-          color: Colors.green,
+          color: Colors.amberAccent.shade200,
         ),
         SizedBox(
           height: 32,
         ),
-        RichText(
-          text: TextSpan(
-            text: 'US\$',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.w900,
-              fontSize: 24,
-            ),
-            children: [
-              TextSpan(
-                text: ' - ${widget.moeda.name}',
-                style: TextStyle(color: Colors.green, fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            text: 'Venda - ',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.w900,
-              fontSize: 24,
-            ),
-            children: [
-              TextSpan(
-                text: ' - R\$ ${widget.moeda.sell}',
-                style: TextStyle(color: Colors.green, fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            text: 'Compra',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.w900,
-              fontSize: 24,
-            ),
-            children: [
-              TextSpan(
-                text: ' - R\$ ${widget.moeda.buy}',
-                style: TextStyle(color: Colors.green, fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            text: 'Variação',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.w900,
-              fontSize: 24,
-            ),
-            children: [
-              TextSpan(
-                text: ' - R\$ ${widget.moeda.variation}',
-                style: TextStyle(color: Colors.green, fontSize: 18),
-              ),
-            ],
-          ),
-        ),
+        ExibicaoMoedaWigted(widget.moeda),
       ],
     );
   }
