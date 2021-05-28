@@ -2,9 +2,10 @@ import 'dart:ui';
 
 import 'package:ddm2_dindin_app/pages/bitcoin_page.dart';
 import 'package:ddm2_dindin_app/pages/dolar_page.dart';
-import 'package:ddm2_dindin_app/pages/query_page.dart';
+import 'package:ddm2_dindin_app/pages/euro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'helper/cotacao_helper.dart';
 import 'model/moeda.dart';
@@ -42,35 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String bitCoin = "BitCoin";
   static Moeda moeda;
 
-  /*
-  @override
-  void initState() {
-    helper.getCotacaoMoeda('usd').then((m) {
-      setState(() {
-        moeda = Moeda.fromJson(m);
-        print(moeda);
-      });
-    });
-    super.initState();
-  }
-   */
-
   var _selectedIndex = 0;
-
-  /*
-  var pages = [
-    Container(
-      color: Colors.red,
-    ),
-    Container(
-      color: Colors.blue,
-    ),
-    Container(
-      color: Colors.pinkAccent,
-    )
-  ];
-
-   */
 
   var pages = [];
 
@@ -87,20 +60,17 @@ class _MyHomePageState extends State<MyHomePage> {
               snapshot.connectionState == ConnectionState.none) {
             return Center(
               child: SizedBox(
-                width: 150,
-                height: 150,
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.red,
-                  valueColor: AlwaysStoppedAnimation(Colors.green),
-                ),
+                width: 250,
+                height: 250,
+                child: LoadingIndicator(indicatorType: Indicator.ballScaleMultiple, color: Colors.blueAccent,),
               ),
             );
           } else {
             moeda = Moeda.fromJson(snapshot.data);
             pages = [
-              QueryPage(moeda: moeda,),
               DolarPage(moeda: moeda),
-              BitCoinPage(moeda: moeda),
+              EuroPage(moeda: moeda),
+              BitCoinPage(moeda: moeda,),
             ];
             return pages[_selectedIndex];
           }
@@ -110,9 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Colors.blueAccent,
         currentIndex: _selectedIndex,
         items: [
-          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.searchDollar), label: 'Busca'),
           BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.dollarSign), label: 'Dolar'),
           BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.euroSign), label: 'Euro'),
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.btc), label: 'BTC'),
         ],
         onTap: (index) {
           setState(() {

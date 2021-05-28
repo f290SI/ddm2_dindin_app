@@ -15,7 +15,7 @@ class _BitCoinPageState extends State<BitCoinPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('BTC'),
+        Text('Query'),
         Text('${widget.moeda.name}'),
         Text('${widget.moeda.buy}'),
       ],
