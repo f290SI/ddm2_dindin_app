@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:ddm2_dindin_app/pages/bitcoin_page.dart';
 import 'package:ddm2_dindin_app/pages/dolar_page.dart';
 import 'package:ddm2_dindin_app/pages/euro_page.dart';
+import 'package:ddm2_dindin_app/pages/query.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -76,6 +77,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   indicatorType: Indicator.ballScaleMultiple,
                   color: Colors.amberAccent,
                 ),
+              ),
+            );
+          } else if (snapshot.hasError || !snapshot.hasData) {
+            return Center(
+              child: Icon(
+                FontAwesomeIcons.exclamationTriangle,
+                color: Colors.amberAccent,
               ),
             );
           } else {
