@@ -80,11 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             );
           } else if (snapshot.hasError || !snapshot.hasData) {
-            return Center(
-              child: Icon(
-                FontAwesomeIcons.exclamationTriangle,
-                color: Colors.amberAccent,
-              ),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  FontAwesomeIcons.exclamationTriangle,
+                  color: Colors.amberAccent,
+                  size: 75,
+                ),
+                Text('${snapshot.error.toString()}'),
+              ],
             );
           } else {
             var moedas = snapshot.data;
