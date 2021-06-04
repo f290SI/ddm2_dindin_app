@@ -92,9 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
               DolarPage(moeda: Moeda.fromJson(moedas['USD'])),
               EuroPage(moeda: Moeda.fromJson(moedas['EUR'])),
               BitCoinPage(moeda: Moeda.fromJson(moedas['BTC'])),
-              Container(
-                color: Colors.amber,
-              ),
+              QueryPage(),
             ];
             return pages[_selectedIndex];
           }

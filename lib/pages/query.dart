@@ -25,7 +25,8 @@ class _QueryPageState extends State<QueryPage> {
         SizedBox(
           height: 16,
         ),
-        TextFieldWidget(icon: FontAwesomeIcons.dollarSign, hint: 'Valor em Dollar',),
+        TextFieldWidget(icon: FontAwesomeIcons.commentDollar, hint: 'Valor em Reais',),
+        TextFieldWidget(icon: FontAwesomeIcons.dollarSign, hint: 'Valor em Dolar',),
         TextFieldWidget(icon: FontAwesomeIcons.euroSign, hint: 'Valor em Euro',),
         TextFieldWidget(icon: FontAwesomeIcons.bitcoin, hint: 'Valor em BitCoin',),
       ],
