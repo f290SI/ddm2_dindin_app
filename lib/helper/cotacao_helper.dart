@@ -1,3 +1,4 @@
+import 'package:ddm2_dindin_app/model/moeda.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as json;
 

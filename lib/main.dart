@@ -93,12 +93,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             );
           } else {
-            var moedas = snapshot.data;
+            var data = snapshot.data;
+            var moedas = [
+              Moeda.fromJson(data['USD']),
+              Moeda.fromJson(data['EUR']),
+              Moeda.fromJson(data['BTC'])
+            ];
             pages = [
-              DolarPage(moeda: Moeda.fromJson(moedas['USD'])),
-              EuroPage(moeda: Moeda.fromJson(moedas['EUR'])),
-              BitCoinPage(moeda: Moeda.fromJson(moedas['BTC'])),
-              QueryPage(),
+              DolarPage(moeda: moedas[0]),
+              EuroPage(moeda: moedas[1]),
+              BitCoinPage(moeda: moedas[2]),
+              QueryPage(moedas: moedas),
             ];
             return pages[_selectedIndex];
           }
