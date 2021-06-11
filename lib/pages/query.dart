@@ -18,15 +18,18 @@ class _QueryPageState extends State<QueryPage> {
   TextEditingController euroController = TextEditingController();
   TextEditingController bitCoinController = TextEditingController();
 
-  _converterModedas() {
-    var number = NumberFormat("###.0#", "pt_BR");
-    var reais = double.parse(realController.text);
-    dolarController.text =
-        number.format(reais / widget.moedas[0].buy).toString();
-    euroController.text =
-        number.format(reais / widget.moedas[1].buy).toString();
-    bitCoinController.text =
-        number.format(reais / widget.moedas[2].buy).toString();
+  _converterReal(String quantiaEmReais) {
+    var reais = double.parse(quantiaEmReais);
+    dolarController.text = (reais / widget.moedas[0].buy).toStringAsFixed(2);
+    euroController.text = (reais / widget.moedas[1].buy).toStringAsFixed(2);
+    bitCoinController.text = (reais / widget.moedas[2].buy).toStringAsFixed(2);
+  }
+
+  _converterDolar(String quantiaEmDolares) {
+    var dolares = double.parse(quantiaEmDolares) * widget.moedas[0].buy;
+    realController.text = (dolares).toStringAsFixed(2);
+    euroController.text = (dolares / widget.moedas[1].buy).toStringAsFixed(2);
+    bitCoinController.text = (dolares / widget.moedas[2].buy).toStringAsFixed(2);
   }
 
   @override
@@ -45,12 +48,19 @@ class _QueryPageState extends State<QueryPage> {
             height: 16,
           ),
           TextFieldWidget(
+            callBack: (value){
+              _converterReal(value);
+            },
             icon: FontAwesomeIcons.commentDollar,
             hint: 'Valor em Reais',
             habilitado: true,
             controller: realController,
           ),
           TextFieldWidget(
+            callBack: (value){
+              _converterDolar(value);
+            },
+            habilitado: true,
             icon: FontAwesomeIcons.dollarSign,
             hint: 'Valor em Dolar',
             controller: dolarController,
@@ -65,14 +75,6 @@ class _QueryPageState extends State<QueryPage> {
             hint: 'Valor em BitCoin',
             controller: bitCoinController,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: FloatingActionButton.extended(
-              backgroundColor: Colors.amberAccent,
-              onPressed: _converterModedas,
-              label: Text('CONVERTER'),
-            ),
-          )
         ],
       ),
     );
